@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'app/style.css' %}" />
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet" />
+
+    <title>{% block title %}Blog{% endblock title %}</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="container container-fluid">
+        <a href="{% url 'index' %}" class="logo">
+          <i class="fa-brands fa-blogger"></i>
+        </a>
+        <div class="links">
+          <a href="{% url 'index' %}">Home</a>
+          <a href="{% url 'about' %}">About</a>
+          <a href="{% url 'all_posts' %}">All Posts</a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'all_bookmarks' %}">Bookmarks</a>
+            <a href="{% url 'all_likes' %}">Likes</a>
+          {% endif %}
+        </div>
+       <div class="action-btn d-flex align-items-center gap-2">
+        {% if user.is_authenticated %}
+          <div class="dropdown">
+            <button class="btn btn-scoundary dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{{ user.profile.profile_img.url }}" alt="Profile" class="rounded-circle" width="30" height="30">
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a class="dropdown-item" href="{% url 'author_page' user.profile.slug %}">{{user.username}}</a>
+              </li>
+              <li>
+                <form method="POST" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <button type="submit" class="dropdown-item">Logout</button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        {% else %}
+          <a href="{% url 'login' %}">
+            <button class="btn btn-scoundary">Login</button>
+          </a>
+          <a href="{% url 'register' %}">
+            <button class="btn btn-primary">Sign Up</button>
+          </a>
+        {% endif %}
+        <i class="uil uil-align-center-alt menu"></i>
+      </div>
+
+      </div>
+    </header>
+
+    <main>
+      {% block content %}
+      {% endblock content %}
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="grid-4">
+          <div class="logo f-logo">
+            <i class="fa-brands fa-blogger"></i>
+          </div>
+
+          <div class="link">
+            <h2>Quick Link</h2>
+            <div class="q-link">
+              <a href="{% url 'index' %}">Home</a>
+              <a href="{% url 'about' %}">About</a>
+              <a href="{% url 'all_posts' %}">All Posts</a>
+            </div>
+          </div>
+
+          <div class="link">
+            {% if user.is_authenticated %}
+              <h2>Your Favourites</h2>
+              <div class="q-link">
+                <a href="{% url 'all_bookmarks' %}">Bookmarks</a>
+                <a href="{% url 'all_likes' %}">Likes</a>
+              </div>
+            {% else %}
+              <h2>Connect with Us</h2>
+              <div class="q-link">
+                <a href="{% url 'register' %}">Signup</a>
+                <a href="{% url 'login' %}">Login</a>
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="news-signup">
+            <h2>Subscribe</h2>
+            <div class="newsletter">
+              {% if messages %} <!--property imported to handle different situations-->
+                <ul class="messages">
+                  {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li> <!--applies a css class like warning, success error etc-->
+                  {% endfor %}
+                </ul>
+              {% endif %}
+              {% if user.is_authenticated %}
+                {% if not subscribed %} <!--if not subscribed then subscription url-->
+                  <form method="POST" action="{% url 'subscribe' %}">
+                    {% csrf_token %}
+                    {{ subscribe_form.email.label_tag }}
+                    {{ subscribe_form.email }}
+                    {% if subscribe_form.email.errors %}
+                      <div class="form-error">
+                        {{ subscribe_form.email.errors.0 }}
+                      </div>
+                    {% endif %}
+                    <button class="btn btn-primary">Subscribe</button>
+                  </form>
+                 {% else %}
+                  <!-- Unsubscribe Form -->
+                  <form method="POST" action="{% url 'unsubscribe' %}" onsubmit="return confirm('Are you sure you want to unsubscribe?');">
+                    {% csrf_token %}
+                    <button class="btn btn-primary">Unsubscribe</button>
+                  </form>
+                {% endif %}
+              {% else %}
+                <p>You must be logged in to subscribe.</p>
+                <a href="{% url 'login' %}" class="btn btn-primary">Login to Subscribe</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="share">
+          <div class="social">
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="{% static 'app/url.js' %}" id="url"></script>
+  </body>
+</html>

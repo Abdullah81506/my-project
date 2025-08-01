@@ -1,0 +1,22 @@
+<style> body {
+  padding-top: 70px; /* adjust if your navbar is taller or shorter */
+} 
+</style>
+{% extends 'base.html' %}
+{% block title %}User | Edit{% endblock title %}
+
+{% block content %}
+<div class="form-wrapper" style="min-height: 70vh; display: flex; justify-content: center; align-items: center;">
+  <div class="form-box" style="width: 100%; max-width: 400px; padding: 2rem; box-shadow: 0 0 10px rgba(0,0,0,0.1); background: white; border-radius: 10px;">
+    <h2>Edit Your Profile</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <h4>Account Info</h4>
+      {{ user_form.as_p }}
+      <h4>Profile Info</h4>
+      {{ profile_form.as_p }}
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

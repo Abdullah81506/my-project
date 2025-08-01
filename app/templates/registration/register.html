@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block title %}Blog | Signup{% endblock title %}
+{% block content %}
+
+      <div class="container">
+        <div class="page-name">
+          <a href="#" class="learn">
+            <span class="material-icons"> keyboard_return </span> Go back
+          </a>
+          <h1>Sign Up</h1>
+        </div>
+
+        <form method="post" class="form" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+          <center>
+            <div class="logo f-logo">
+              <i class="fa-brands fa-blogger"></i>
+            </div>
+            {% if form.non_field_errors %} <!--authentciation property that contains error messages-->
+            {% for error in form.non_field_errors %}
+                <div class="field-error">
+                    <p>{{error}}</p> <!--error message is displayed-->
+                </div> 
+            {% endfor %}
+            {% endif %}
+            <div class="inputs">
+              <div>
+                <div class="search-bar s-active input">
+                  {{ form.first_name }}
+                  <div class="animated-search">
+                    <i class="uil uil-user"></i>
+                  </div>
+                </div>
+                {% if form.first_name.errors %}
+                <div class="field-error">
+                  <p>{{ form.first_name.errors.as_text }}</p>
+                </div>
+                {% endif %}
+              </div>
+
+              <div>
+                <div class="search-bar s-active input">
+                  {{ form.last_name }}
+                  <div class="animated-search">
+                    <i class="uil uil-user"></i>
+                  </div>
+                </div>
+                {% if form.last_name.errors %}
+                <div class="field-error">
+                  <p>{{ form.last_name.errors.as_text }}</p>
+                </div>
+                {% endif %}
+              </div>
+
+              <div>
+                <div class="search-bar s-active input">
+                  {{form.username}}
+                  <div class="animated-search">
+                    <i class="uil uil-user"></i>
+                  </div>
+                </div>
+                {% if form.username.errors %}
+                <div class="field-error">
+                  <p>{{form.username.errors.as_text}}</p> <!--rendering the error message as text-->
+                </div>
+                {% endif %}
+              </div>
+
+              <div>
+                <div class="search-bar s-active input">
+                    {{form.email}}
+                  <div class="animated-search">
+                    <i class="uil uil-envelope-alt"></i>
+                  </div>
+                </div>
+                {% if form.email.errors %}
+                <div class="field-error">
+                  <p>{{form.email.errors.as_text}}</p>
+                </div>
+                {% endif %}
+              </div>
+
+              <div>
+                <div class="search-bar s-active input">
+                    {{form.password1}}
+                  <div class="animated-search">
+                    <i class="uil uil-key-skeleton"></i>
+                  </div>
+                </div>
+                {% if form.password.errors %}
+                <div class="field-error">
+                  <p>{{form.password.errors.as_text}}</p>
+                </div>
+                {% endif %}
+              </div>
+              <div>
+                <div class="search-bar s-active input">
+                    {{form.password2}}
+                  <div class="animated-search">
+                    <i class="uil uil-key-skeleton"></i>
+                  </div>
+                </div>
+                {% if form.password2.errors %}
+                <div class="field-error">
+                  <p>{{form.password2.errors.as_text}}</p>
+                </div>
+                {% endif %}
+              </div>
+
+              <div>
+                <div class="search-bar s-active input">
+                  {{ form.profile_img }}
+                  <div class="animated-search">
+                    <i class="uil uil-image"></i>
+                  </div>
+                </div>
+                {% if form.profile_img.errors %}
+                <div class="field-error">
+                  <p>{{ form.profile_img.errors.as_text }}</p>
+                </div>
+                {% endif %}
+              </div>
+
+              <button class="btn btn-primary rounded">
+                SIGN UP <span class="material-icons"> arrow_right_alt </span>
+              </button>
+              <center>
+                <p>Already have an account? <a href="{% url "login" %}">Login</a></p>
+              </center>
+            </div>
+          </center>
+        </form>
+      </div>
+    {% endblock content %}
+   
