@@ -136,8 +136,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')      # Replace with your Gmail
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')     # NOT your normal password!
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')      # Replace with your Gmail
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')     # NOT your normal password!
 
 # this tells for all api views use jwt tokens to identify who the user is
 REST_FRAMEWORK = {
