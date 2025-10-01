@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Django
+*.sqlite3
+db.sqlite3
+.env
+*.pot
+*.pyc
+*.log
+
+# Environments
+env/
+venv/
+.venv/
+*.egg-info/
+pip-log.txt
+
+# Static / Media (don’t push user uploads or collected staticfiles)
+staticfiles/
+media/
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-specific
+.DS_Store
+Thumbs.db
