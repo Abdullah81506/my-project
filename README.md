@@ -54,6 +54,6 @@ This project supports posts, likes, bookmarks, comments, author profiles, subscr
 
 - /all_likes/ → View all likes
 
-/subscribe/ → Subscribe
+- /subscribe/ → Subscribe
 
-/unsubscribe/ → Unsubscribe
+- /unsubscribe/ → Unsubscribe
