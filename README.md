@@ -1,6 +1,6 @@
 # 📝 Django Blog Application
 
-A fully-functional blog application built with **Django**.  
+A blog application built with **Django**.  
 This project supports posts, likes, bookmarks, comments, author profiles, subscriptions, and authentication.
 
 ---
